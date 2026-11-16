@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="可自定义奖品与概率的 Python 转盘抽奖网页游戏">
+  <title>幸运大转盘</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="bg-orbs" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+
+  <div class="page" id="page">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" width="30" height="30" fill="none">
+            <circle cx="24" cy="24" r="19" stroke="currentColor" stroke-width="2.6"/>
+            <path d="M24 5v38M5 24h38M10.6 10.6l26.8 26.8M37.4 10.6 10.6 37.4" stroke="currentColor" stroke-width="1.8" opacity=".65"/>
+            <circle cx="24" cy="24" r="4.6" fill="currentColor"/>
+            <circle cx="24" cy="5" r="2.4" fill="currentColor"/>
+          </svg>
+        </span>
+        <div class="brand-copy">
+          <h1 id="app-title">幸运大转盘</h1>
+          <p><span>自定义奖品与概率</span><span class="subtitle-extra"> · Python 服务端抽取</span></p>
+        </div>
+      </div>
+      <div class="status-pill" id="server-status" data-state="loading">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span id="status-text">连接中…</span>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="stage-card" aria-label="抽奖转盘">
+        <div class="wheel-shell" id="wheel-shell">
+          <div class="pointer" aria-hidden="true"></div>
+          <canvas id="wheel" width="720" height="720" role="img" aria-label="按奖品权重绘制的抽奖转盘"></canvas>
+          <button class="spin-button" id="spin-button" type="button" disabled>
+            <span class="spin-label">抽奖</span>
+            <span class="spin-sub">SPIN</span>
+          </button>
+        </div>
+
+        <p class="hint" id="hint" aria-live="polite">点击转盘中间的按钮，结果由服务端按权重抽取。</p>
+
+        <div class="history">
+          <div class="history-head">
+            <h2>最近结果</h2>
+            <span class="history-count" id="history-count">暂无记录</span>
+          </div>
+          <ol class="history-list" id="history-list">
+            <li class="history-empty">还没有抽奖记录，试试手气吧。</li>
+          </ol>
+        </div>
+      </section>
+
+      <aside class="panel" id="settings-panel" aria-label="奖品与概率设置">
+        <div class="panel-head">
+          <div>
+            <h2>奖品与概率</h2>
+            <p>权重越大，中奖概率越高。</p>
+          </div>
+          <span class="total-chip" id="total-chip">8 个奖品 · 总权重 100</span>
+        </div>
+
+        <label class="field" for="title-input">
+          <span>活动标题</span>
+          <input class="text-input" id="title-input" type="text" maxlength="30" autocomplete="off" placeholder="幸运大转盘">
+        </label>
+
+        <div class="prize-header" aria-hidden="true">
+          <span>颜色</span>
+          <span>奖品名称</span>
+          <span>权重</span>
+          <span>概率</span>
+          <span></span>
+        </div>
+        <div class="prize-list" id="prize-list"></div>
+
+        <button class="add-button" id="add-prize" type="button">＋ 添加奖品</button>
+
+        <div class="panel-actions">
+          <button class="secondary-button" id="revert-button" type="button" disabled>撤销修改</button>
+          <button class="primary-button" id="save-button" type="button" disabled>保存设置</button>
+        </div>
+        <p class="panel-note">修改先在本机预览，保存后写入 <code>data/config.json</code>，立即用于下一次抽奖。</p>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <p>概率 = 单项权重 ÷ 总权重，由 <code>random.SystemRandom</code> 在 Python 服务端抽取；转盘动画只负责展示结果。</p>
+      <p>本地娱乐项目，请勿用于真实博彩。</p>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="modal" id="result-modal" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="result-heading">
+      <div class="modal-glow" aria-hidden="true"></div>
+      <p class="modal-kicker">抽奖结果</p>
+      <h2 class="result-heading" id="result-heading">本次抽中</h2>
+      <p class="result-prize" id="result-prize">特等奖</p>
+      <p class="result-prob" id="result-prob">中奖概率 1%</p>
+      <button class="primary-button" id="close-result" type="button">继续抽奖</button>
+    </div>
+  </div>
+
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
