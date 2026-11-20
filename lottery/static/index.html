@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="light dark">
   <meta name="description" content="可自定义奖品与概率的 Python 转盘抽奖网页游戏">
   <title>幸运大转盘</title>
   <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <script src="/static/theme.js"></script>
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
@@ -26,9 +27,32 @@
           <p><span>自定义奖品与概率</span><span class="subtitle-extra"> · Python 服务端抽取</span></p>
         </div>
       </div>
-      <div class="status-pill" id="server-status" data-state="loading">
-        <span class="status-dot" aria-hidden="true"></span>
-        <span id="status-text">连接中…</span>
+      <div class="topbar-actions">
+        <div class="status-pill" id="server-status" data-state="loading">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span id="status-text">连接中…</span>
+        </div>
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          type="button"
+          aria-label="切换到夜间模式"
+          title="切换到夜间模式"
+        >
+          <span class="theme-toggle-icon" aria-hidden="true">
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none">
+              <path d="M20 14.5A8.2 8.2 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            </svg>
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M12 2.5v2.2M12 19.3v2.2M21.5 12h-2.2M4.7 12H2.5M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6M18.7 18.7l-1.6-1.6M6.9 6.9 5.3 5.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="theme-toggle-text">
+            <span class="label-to-night">夜间模式</span>
+            <span class="label-to-day">日间模式</span>
+          </span>
+        </button>
       </div>
     </header>
 

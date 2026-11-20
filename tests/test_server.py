@@ -70,6 +70,8 @@ class ServerTests(unittest.TestCase):
         html = body.decode("utf-8")
         self.assertIn("幸运大转盘", html)
         self.assertIn("/static/app.js", html)
+        self.assertIn("/static/theme.js", html)
+        self.assertIn("theme-toggle", html)
         self.assertEqual(headers.get("X-Content-Type-Options"), "nosniff")
         self.assertEqual(headers.get("Referrer-Policy"), "no-referrer")
         self.assertIn("default-src 'self'", headers.get("Content-Security-Policy", ""))
@@ -79,6 +81,7 @@ class ServerTests(unittest.TestCase):
         cases = {
             "/static/styles.css": "text/css",
             "/static/app.js": "text/javascript",
+            "/static/theme.js": "text/javascript",
             "/static/favicon.svg": "image/svg+xml",
         }
         for path, content_type in cases.items():
