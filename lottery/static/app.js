@@ -86,6 +86,7 @@
   function init() {
     cacheElements();
     bindEvents();
+    initTheme();
     el.titleInput.value = state.draft.title;
     renderPrizeList();
     updateDraftView();
@@ -106,6 +107,7 @@
     el.brandTitle = byId("app-title");
     el.statusPill = byId("server-status");
     el.statusText = byId("status-text");
+    el.themeToggle = byId("theme-toggle");
     el.hint = byId("hint");
     el.historyList = byId("history-list");
     el.historyCount = byId("history-count");
@@ -126,6 +128,7 @@
   function bindEvents() {
     el.spinButton.addEventListener("click", spin);
     el.saveButton.addEventListener("click", saveConfig);
+    el.themeToggle.addEventListener("click", toggleTheme);
     el.revertButton.addEventListener("click", revertChanges);
     el.addButton.addEventListener("click", addPrize);
 
@@ -157,6 +160,37 @@
         event.returnValue = "";
       }
     });
+  }
+
+  // ---------------------------------------------------------------- theme
+
+  function themeReady() {
+    return Boolean(window.WheelTheme);
+  }
+
+  function initTheme() {
+    if (!themeReady()) {
+      el.themeToggle.hidden = true;
+      return;
+    }
+    syncThemeToggle();
+  }
+
+  function toggleTheme() {
+    if (!themeReady()) return;
+    window.WheelTheme.set(
+      window.WheelTheme.get() === "night" ? "day" : "night"
+    );
+    syncThemeToggle();
+  }
+
+  function syncThemeToggle() {
+    const night = themeReady() && window.WheelTheme.get() === "night";
+    el.themeToggle.setAttribute(
+      "aria-label",
+      night ? "切换到日间模式" : "切换到夜间模式"
+    );
+    el.themeToggle.title = night ? "切换到日间模式" : "切换到夜间模式";
   }
 
   async function loadInitialData() {

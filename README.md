@@ -20,6 +20,16 @@
 
 <a href="docs/screenshots/after-mobile.jpg"><img src="docs/screenshots/after-mobile.jpg" width="300" alt="移动端界面"></a>
 
+白天 / 夜间主题（右上角按钮切换，选择保存在本机浏览器）：
+
+| 日间模式 | 夜间模式 |
+| --- | --- |
+| ![日间模式](docs/screenshots/after-desktop.jpg) | ![夜间模式](docs/screenshots/night-mode-night-desktop.jpg) |
+
+移动端夜间模式（点击查看大图）：
+
+<a href="docs/screenshots/night-mode-night-mobile.jpg"><img src="docs/screenshots/night-mode-night-mobile.jpg" width="300" alt="移动端夜间模式"></a>
+
 ## 功能
 
 - **可视化编辑奖品**：修改名称、颜色和权重，支持 2–24 个奖品。
@@ -28,6 +38,7 @@
 - **转盘动画对齐结果**：先由服务端抽奖，再由动画转到对应扇区，动画只负责展示。
 - **配置持久化**：保存到 `data/config.json`，重启不丢失；配置文件损坏时会自动备份并回退默认配置。
 - **最近结果**：服务端保留最近 20 条记录，页面展示最近 8 条（内存保存，重启后清空）。
+- **白天 / 夜间主题**：右上角按钮在日间和夜间两种主题间切换，选择保存在本机浏览器。
 - **响应式界面**：桌面和手机均可使用，支持键盘操作与减少动画偏好。
 - **零外部依赖**：不加载 CDN 资源，自带 CSP 与常用安全响应头。
 
